@@ -17,4 +17,5 @@ class ResponseMessage:
         "hardResetDirect":{},
         "takeQCReportBackupDirect":{},   
         "restoreLocalBackupDirect":{},
+        "factoryresetDirect":{},
     }

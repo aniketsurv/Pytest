@@ -72,11 +72,11 @@ class CloudMqttConnection:
             if obj["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS":
                 calmail_update = obj["dataArray"][0]["calmailUpdate"]
                 for key in ResponseMessage.cloud_response:
-                    if key in calmail_update:
+                    if any(key in item for item in calmail_update):
                         ResponseMessage.cloud_response[key] = obj
-                print(f"Updated cloud_response for {obj['type']}")
+                print(f"Updated cloud_response for {obj}")
             else:
-                print(f"Unknown type received: {obj['type']}")
+                print(f"Unknown type received: {obj}")
         except Exception as e:
             print("Exception in on_message method -->", e)
     

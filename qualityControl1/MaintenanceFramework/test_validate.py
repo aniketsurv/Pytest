@@ -236,7 +236,7 @@ class TestPercentage:
     #         "dataArray": [
     #             {
     #             "stopAllProcessIndirect": True,
-    #             "CML_HUBAUTH_ID": "2qdJeIwzQDkF",
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
     #             "CML_HUBSERIAL_ID": mqttTopics.serial,
     #             "CML_LATEST": 1,
     #             "CML_PORT": 12312,
@@ -270,7 +270,8 @@ class TestPercentage:
     #     if 'stopAllProcessIndirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['stopAllProcessIndirect']:
     #         try:
     #             stop_all_process = ResponseMessage.cloud_response['stopAllProcessIndirect']
-    #             stop_all_process["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert stop_all_process["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert stop_all_process["dataArray"][0]["calmailUpdate"]["stopAllProcessIndirect"] is False, "'stopAllProcessIndirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
@@ -308,7 +309,8 @@ class TestPercentage:
     #     if 'takeRemoteAccessDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['takeRemoteAccessDirect']:
     #         try:
     #             takeRemoteAccessResponse = ResponseMessage.cloud_response['takeRemoteAccessDirect']
-    #             takeRemoteAccessResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert takeRemoteAccessResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert takeRemoteAccessResponse["dataArray"][0]["calmailUpdate"]["takeRemoteAccessDirect"] is False, "'takeRemoteAccessDirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
@@ -321,7 +323,7 @@ class TestPercentage:
     #         "dataArray": [
     #             {
     #             "CML_HUBSERIAL_ID": mqttTopics.serial,
-    #             "CML_HUBAUTH_ID": "YQolhcgbSAFa",
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
     #             "CML_PROPERTY_ID": "jymuylyfhkqdd.cloudssbuilderss.clouzer.com#PRJ_ORG_WKS_1738761287736_9877",
     #             "calmailObject": {
     #                 "getSshKeysDirect": True,
@@ -345,7 +347,8 @@ class TestPercentage:
     #     if 'getSshKeysDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['getSshKeysDirect']:
     #         try:
     #             sshKeyResponse = ResponseMessage.cloud_response['getSshKeysDirect']
-    #             sshKeyResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert sshKeyResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert sshKeyResponse["dataArray"][0]["calmailUpdate"]["getSshKeysDirect"] is False, "'getSshKeysDirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
@@ -358,7 +361,7 @@ class TestPercentage:
     #         "dataArray": [
     #             {
     #             "CML_HUBSERIAL_ID": mqttTopics.serial,
-    #             "CML_HUBAUTH_ID": "j8TGbPF0hWeE",
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
     #             "CML_PROPERTY_ID": "qvfshrdmsttep.cloudssbuilderss.clouzer.com#PRJ_ORG_WKS_1738759493758_5938",
     #             "calmailObject": {
     #                 "softResetDirect": True,
@@ -384,7 +387,8 @@ class TestPercentage:
     #     if 'softResetDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['softResetDirect']:
     #         try:
     #             softResetResponsne = ResponseMessage.cloud_response['softResetDirect']
-    #             softResetResponsne["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert softResetResponsne["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert softResetResponsne["dataArray"][0]["calmailUpdate"]["softResetDirect"] is False, "'softResetDirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
@@ -407,85 +411,57 @@ class TestPercentage:
     #     if 'hardResetDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['hardResetDirect']:
     #         try:
     #             hardResetResponse = ResponseMessage.cloud_response['hardResetDirect']
-    #             hardResetResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert hardResetResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert hardResetResponse["dataArray"][0]["calmailUpdate"]["hardResetDirect"] is False, "'hardResetDirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
     #     assert received_response, "Expected response not received."
         
-    def test_start_qc(self): 
-        necessaryData = IpAddresss.get_necessary_ids('start_qc')
-        # requestObj = {
-        #         "socketId": "kAoszd8UDCzxmN1qAAPA",
-        #         "dataArray": [
-        #             {
-        #                 "CML_HUBSERIAL_ID": "CE-ebf541b5af7af0df",
-        #                 "CML_HUBAUTH_ID": "j8TGbPF0hWeE",
-        #                 "CML_PROPERTY_ID": "",
-        #                 "essentialList": {
-        #                     "REQUEST_STATUS": "PENDING",
-        #                     "requestOn": "2025-02-21T07:55:51.091Z",
-        #                     "requestType": "direct"
-        #                 },
-        #                 "calmailObject": {
-        #                     "takeQCReportBackupDirect": True,
-        #                     "CML_STAGE": 1,
-        #                     "CML_TYPE": "Raw Hub",
-        #                     "SYNC_PENDING_STATUS": 0,
-        #                     "LAST_MODIFIED_ON": "2025-02-21T07:55:51.529Z",
-        #                     "UPDATE_IP": "",
-        #                     "LAST_MODIFIED_BY": "ankita.chavan@cloudsmaintenance.clouzer.com"
-        #                 },
-        #                 "visibility": 1
-        #             }
-        #         ],
-        #         "userId": "ankita.chavan@cloudsmaintenance.clouzer.com",
-        #         "requestId": "/sync#kAoszd8UDCzxmN1qAAPAankita.chavan@cloudsmaintenance.clouzer.com#1740124551093r137r234",
-        #         "serverAction": "PERFORM_QUICK_ACTION_SERVER",
-        #         "essentialList": [],
-        #         "moduleName": "IOE"
-        #     }
-        requestObj ={
-            "socketId": "kAoszd8UDCzxmN1qAAPA",
-            "dataArray": [
-                {
-                "CML_HUBSERIAL_ID": mqttTopics.serial,
-                "CML_HUBAUTH_ID": "j8TGbPF0hWeE",
-                "CML_PROPERTY_ID": "",
-                "essentialList": {
-                    "REQUEST_STATUS": "PENDING",
-                    "requestOn": "2025-02-21T07:55:51.091Z",
-                    "requestType": "direct"
-                },
-                "calmailObject": {
-                    "takeQCReportBackupDirect": True,
-                    "CML_STAGE": 1,
-                    "CML_TYPE": "Raw Hub",
-                    "SYNC_PENDING_STATUS": 0,
-                    "LAST_MODIFIED_ON": "2025-02-21T07:55:51.529Z",
-                    "UPDATE_IP": "",
-                    "LAST_MODIFIED_BY": "ankita.chavan@cloudsmaintenance.clouzer.com"
-                },
-                "visibility": 1
-                }
-            ],
-            "userId": constant.mac_ID,
-            "requestId": necessaryData['requestId'], 
-            "serverAction": "PERFORM_QUICK_ACTION_SERVER",
-            "essentialList": [],
-            "moduleName": "IOE"
-            }
-        received_response = False
-        CloudMqttConnection.test_sample(f'{mqttTopics.NameSpaceId}/{mqttTopics.modelNumber}/{mqttTopics.serial}/MTN_TO_HUB', requestObj)
-        time.sleep(5)
-        if 'takeQCReportBackupDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['takeQCReportBackupDirect']:
-            try:
-                startQcResponse = ResponseMessage.cloud_response['takeQCReportBackupDirect']
-                startQcResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
-                received_response = True
-            except Exception as e:
-                pytest.fail(f"Error in parsing received message: {e}")
-        assert received_response, "Expected response not received."
+    # def test_start_qc(self): 
+    #     necessaryData = IpAddresss.get_necessary_ids('start_qc')
+    #     requestObj ={
+    #         "socketId": "kAoszd8UDCzxmN1qAAPA",
+    #         "dataArray": [
+    #             {
+    #             "CML_HUBSERIAL_ID": mqttTopics.serial,
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
+    #             "CML_PROPERTY_ID": "",
+    #             "essentialList": {
+    #                 "REQUEST_STATUS": "PENDING",
+    #                 "requestOn": "2025-02-21T07:55:51.091Z",
+    #                 "requestType": "direct"
+    #             },
+    #             "calmailObject": {
+    #                 "takeQCReportBackupDirect": True,
+    #                 "CML_STAGE": 1,
+    #                 "CML_TYPE": "Raw Hub",
+    #                 "SYNC_PENDING_STATUS": 0,
+    #                 "LAST_MODIFIED_ON": "2025-02-21T07:55:51.529Z",
+    #                 "UPDATE_IP": "",
+    #                 "LAST_MODIFIED_BY": "ankita.chavan@cloudsmaintenance.clouzer.com"
+    #             },
+    #             "visibility": 1
+    #             }
+    #         ],
+    #         "userId": constant.mac_ID,
+    #         "requestId": necessaryData['requestId'], 
+    #         "serverAction": "PERFORM_QUICK_ACTION_SERVER",
+    #         "essentialList": [],
+    #         "moduleName": "IOE"
+    #     }
+    #     received_response = False
+    #     CloudMqttConnection.test_sample(f'{mqttTopics.NameSpaceId}/{mqttTopics.modelNumber}/{mqttTopics.serial}/MTN_TO_HUB', requestObj)
+    #     time.sleep(5)
+    #     if 'takeQCReportBackupDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['takeQCReportBackupDirect']:
+    #         try:
+    #             startQcResponse = ResponseMessage.cloud_response['takeQCReportBackupDirect']
+    #             assert startQcResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert startQcResponse["dataArray"][0]["calmailUpdate"]["takeQCReportBackupDirect"] is False, "'takeQCReportBackupDirect' value is incorrect"
+    #             received_response = True
+    #         except Exception as e:
+    #             pytest.fail(f"Error in parsing received message: {e}")
+    #     assert received_response, "Expected response not received."
         
     # def test_hub_sync(self): 
     #     necessaryData = IpAddresss.get_necessary_ids('hub_sync')
@@ -493,8 +469,8 @@ class TestPercentage:
     #         "socketId": "bilz35Hx8vkAWLwGAARm",
     #         "dataArray": [
     #             {
-    #             "CML_HUBSERIAL_ID": "CE-38c10cdf82f5175f",
-    #             "CML_HUBAUTH_ID": "PHnV1f6lsWRE",
+    #             "CML_HUBSERIAL_ID":mqttTopics.serial,
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
     #             "CML_PROPERTY_ID": "vhcbqzbairafb.cloudssbuilderss.clouzer.com#PRJ_ORG_WKS_1740485664710_9832",
     #             "essentialList": {
     #                 "requestOn": "2025-02-25T13:18:09.166Z"
@@ -519,7 +495,8 @@ class TestPercentage:
     #     if 'bulk_update_hub' in ResponseMessage.response and ResponseMessage.response['bulk_update_hub']:
     #         try:
     #             syncResponse = ResponseMessage.response['bulk_update_hub']
-    #             syncResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert syncResponse["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert syncResponse["dataArray"][0]["calmailUpdate"]["bulk_update_hub"] is False, "'bulk_update_hub' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
@@ -533,7 +510,7 @@ class TestPercentage:
     #         "dataArray": [
     #             {
     #             "CML_HUBSERIAL_ID":  mqttTopics.serial,
-    #             "CML_HUBAUTH_ID": "j8TGbPF0hWeE",
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
     #             "CML_PROPERTY_ID": "",
     #             "calmailObject": {
     #                 "resetCronTabUserDirect": True,
@@ -559,7 +536,8 @@ class TestPercentage:
     #     if 'resetCronTabUserDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['resetCronTabUserDirect']:
     #         try:
     #             userCrontabObj = ResponseMessage.cloud_response['resetCronTabUserDirect']
-    #             userCrontabObj["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert userCrontabObj["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert userCrontabObj["dataArray"][0]["calmailUpdate"]["resetCronTabUserDirect"] is False, "'resetCronTabUserDirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
@@ -572,7 +550,7 @@ class TestPercentage:
     #         "dataArray": [
     #             {
     #             "CML_HUBSERIAL_ID": mqttTopics.serial,
-    #             "CML_HUBAUTH_ID": "j8TGbPF0hWeE",
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
     #             "CML_PROPERTY_ID": "",
     #             "calmailObject": {
     #                 "resetCronTabRootDirect": True,
@@ -598,7 +576,8 @@ class TestPercentage:
     #     if 'resetCronTabRootDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['resetCronTabRootDirect']:
     #         try:
     #             rootObj = ResponseMessage.cloud_response['resetCronTabRootDirect']
-    #             rootObj["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert rootObj["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert rootObj["dataArray"][0]["calmailUpdate"]["resetCronTabRootDirect"] is False, "'resetCronTabRootDirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
@@ -611,7 +590,7 @@ class TestPercentage:
     #         "dataArray": [
     #             {
     #             "CML_HUBSERIAL_ID": mqttTopics.serial,
-    #             "CML_HUBAUTH_ID": "j8TGbPF0hWeE",
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
     #             "CML_PROPERTY_ID": "",
     #             "calmailObject": {
     #                 "restoreLocalBackupDirect": True,
@@ -632,7 +611,6 @@ class TestPercentage:
     #         ],
     #         "moduleName": "IOE"
     #     }
-
     #     received_response = False
     #     CloudMqttConnection.test_sample(f'{mqttTopics.NameSpaceId}/{mqttTopics.modelNumber}/{mqttTopics.serial}/MTN_TO_HUB', requestObj)
     #     time.sleep(5)
@@ -640,10 +618,93 @@ class TestPercentage:
     #         try:
     #             rootObj = ResponseMessage.cloud_response['restoreLocalBackupDirect']
     #             rootObj["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+    #             assert rootObj["dataArray"][0]["calmailUpdate"]["restoreLocalBackupDirect"] is False, "'restoreLocalBackupDirect' value is incorrect"
     #             received_response = True
     #         except Exception as e:
     #             pytest.fail(f"Error in parsing received message: {e}")
     #     assert received_response, "Expected response not received."
 
+    # def test_factory_reset(self): 
+    #     necessaryData = IpAddresss.get_necessary_ids('db_backup_and_restore')
+    #     requestObj ={
+    #         "socketId": "WZ1P2IZz0qkG8Tr7AAPa",
+    #         "dataArray": [
+    #             {
+    #             "CML_HUBSERIAL_ID": mqttTopics.serial,
+    #             "CML_HUBAUTH_ID": constant.CODED_HUBID,
+    #             "CML_PROPERTY_ID": "smnoplenlwawn.cloudssbuilderss.clouzer.com#PRJ_ORG_WKS_1741331876940_7957",
+    #             "calmailObject": {
+    #                 "factoryResetDirect": True,
+    #                 "rebootStartTime": "2025-03-12T09:30:59.750Z",
+    #                 "SYNC_PENDING_STATUS": 0,
+    #                 "LAST_MODIFIED_ON": "2025-03-12T09:31:21.816Z",
+    #                 "UPDATE_IP": "",
+    #                 "LAST_MODIFIED_BY": "ankita.chavan@cloudsmaintenance.clouzer.com"
+    #             },
+    #             "visibility": 1
+    #             }
+    #         ],
+    #         "userId": constant.mac_ID,
+    #         "requestId": necessaryData['requestId'], 
+    #         "serverAction": "PERFORM_QUICK_ACTION_SERVER",
+    #         "essentialList": [],
+    #         "moduleName": "IOE"
+    #     }
+    #     received_response = False
+    #     CloudMqttConnection.test_sample(f'{mqttTopics.NameSpaceId}/{mqttTopics.modelNumber}/{mqttTopics.serial}/MTN_TO_HUB', requestObj)
+    #     time.sleep(5)
+    #     print("ResponseMessage.cloud_response['factoryresetDirect']",ResponseMessage.cloud_response['factoryresetDirect'])
+    #     if 'factoryresetDirect' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['factoryresetDirect']:
+    #         try:
+    #             rootObj = ResponseMessage.cloud_response['factoryresetDirect']
+    #             print("root obj --",rootObj)
+    #             rootObj["dataArray"][0]["actionArray"][0] == 'QUICK_ACTION_SUCCESS',"QUICK_ACTION_ERROR generated"
+    #             received_response = True
+    #         except Exception as e:
+    #             pytest.fail(f"Error in parsing received message: {e}")
+    #     assert received_response, "Expected response not received."
+
+
+    def test_reset_hub_network(self):
+        necessaryData = IpAddresss.get_necessary_ids('stop_all_process')
+        requestObj ={
+            "socketId": "WZ1P2IZz0qkG8Tr7AAPa",
+            "dataArray": [
+                {
+                "CML_HUBSERIAL_ID": mqttTopics.serial,
+                "CML_HUBAUTH_ID": constant.CODED_HUBID,
+                "CML_PROPERTY_ID": "smnoplenlwawn.cloudssbuilderss.clouzer.com#PRJ_ORG_WKS_1741331876940_7957",
+                "calmailObject": {
+                    "resetHubNetwork": True,
+                    "rebootStartTime": "2025-03-12T09:30:59.750Z",
+                    "SYNC_PENDING_STATUS": 0,
+                    "LAST_MODIFIED_ON": "2025-03-12T09:31:21.816Z",
+                    "UPDATE_IP": "",
+                    "LAST_MODIFIED_BY": "ankita.chavan@cloudsmaintenance.clouzer.com"
+                },
+                "visibility": 1
+                }
+            ],
+            "userId": constant.mac_ID,
+            "requestId": necessaryData['requestId'], 
+            "serverAction": "PERFORM_QUICK_ACTION_SERVER",
+            "essentialList": [],
+            "moduleName": "IOE"
+        }
+        received_response = False
+        CloudMqttConnection.test_sample(f'{mqttTopics.NameSpaceId}/{mqttTopics.modelNumber}/{mqttTopics.serial}/MTN_TO_HUB', requestObj)
+        time.sleep(15)
+        if 'resetHubNetwork' in ResponseMessage.cloud_response and ResponseMessage.cloud_response['resetHubNetwork']:
+            try:
+                stop_all_process = ResponseMessage.cloud_response['resetHubNetwork']
+                assert stop_all_process["dataArray"][0]["actionArray"][0] == "QUICK_ACTION_SUCCESS","QUICK_ACTION_ERROR generated"
+                assert stop_all_process["dataArray"][0]["calmailUpdate"]["resetHubNetwork"] is False, "'resetHubNetwork' value is incorrect"
+                received_response = True
+            except Exception as e:
+                pytest.fail(f"Error in parsing received message: {e}")
+        assert received_response, "Expected response not received."
+
+        
+        
         
         

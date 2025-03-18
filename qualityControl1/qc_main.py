@@ -9,6 +9,8 @@ from connections.MqttConnection import FrontMqttConnection
 from connections.cloudMqttConnection import CloudMqttConnection
 from connections.Container import checkDocker
 from connections.Network import IpAddresss
+from connections.email import Email
+
 
 from utils import logConfig
 logConfig.setup_logging()
@@ -67,7 +69,7 @@ class TestRunner:
         if server_url_string == "https://modus.clouzer.com":
             url = "https://clouzerweb.clouzer.com/upload"
         else:
-            url = f"{server_url_string}/uploserver Response for upload report error: Unexpected token o in JSON at position 1ad"
+            url = f"{server_url_string}/upload"
         jwt_token = SERVER_MAP[url]
         extra_params = {"scriptName": "TEST_REPORTS"}
         # Prepare payload
@@ -134,8 +136,9 @@ class TestRunner:
                 else:
                     print(f"All tests passed in {test_folder}.")
             self.create_tar_and_upload_report(report_files)
+            Email.mail_generator(test_folder,result)
             FrontMqttConnection.client_disconnect()
-            CloudMqttConnection.client_disconnect()
+            CloudMqttConnection.client_disconnect() 
         else:
             print("Expected container not running-->",runningContainer)
             

@@ -12,13 +12,6 @@ import random
 import os
 
 class IpAddresss:
-    
-    def read_file(file_path):
-        if os.path.exists(file_path):
-            with open(file_path, 'r') as file:
-                return file.read()          
-        else:
-            print("file path not found")
         
     def get_network_creadentials():
         file_path = "/etc/network/interfaces"
@@ -73,3 +66,10 @@ class IpAddresss:
                 return mac_address.upper()
         except FileNotFoundError:
             return None
+    
+    def read_file(file_path):
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as file:
+                return file.read()          
+        else:
+            print("file path not found")
